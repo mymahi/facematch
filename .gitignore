@@ -1,0 +1,35 @@
+# Node.js dependencies
+node_modules/
+# Python cache
+__pycache__/
+# Compiled Python files
+*.pyc
+# Build output
+dist/
+build/
+# Logs
+logs/
+*.log
+# Environment variables
+.env
+# OS generated files
+.DS_Store
+Thumbs.db
+# IDE specific files
+.vscode/
+.idea/
+*.sublime-workspace
+# Coverage reports
+coverage/
+# Temporary files
+tmp/
+temp/
+# Ignore specific folders
+exported_models/*
+!exported_models/.gitkeep
+source_weights/*
+!source_weights/.gitkeep
+test_photos/*
+!test_photos/.gitkeep
+test_results/*
+!test_results/.gitkeep

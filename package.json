@@ -1,0 +1,19 @@
+{
+  "type": "module",
+  "dependencies": {},
+  "scripts": {
+    "postinstall": "npm run install-python-requirements",
+    "install-python-requirements": "pip install -r python_scripts/requirements.txt",
+    "download-weights": "bash ./download_weights.sh",
+    "convert-models": "python3 ./python_scripts/convert_all_models.py",
+    "quantize-models": "bash ./python_scripts/quantize_models.sh",
+    "test-face-match": "tsx ./ts_src/test_face_match.ts"
+  },
+  "devDependencies": {
+    "onnxruntime-node": "^1.22.0-rev",
+    "onnxruntime-web": "^1.22.0",
+    "sharp": "^0.34.3",
+    "tsx": "^4.20.3",
+    "typescript": "^5.8.3"
+  }
+}

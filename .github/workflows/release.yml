@@ -1,0 +1,45 @@
+name: Release Workflow
+
+on:
+  push:
+    tags:
+      - 'v*' # Trigger on new tags starting with 'v'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # Grant write permission for creating releases
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '22' # Specify the Node.js version
+          cache: 'npm' # Enable caching for npm dependencies
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Download the weights
+        run: npm run download-weights
+
+      - name: Convert weights to ONNX format
+        run: npm run convert-models
+
+      - name: Quantize models
+        run: npm run quantize-models
+
+      - name: Create GitHub Release with Assets
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          TAG: ${{ github.ref_name }}
+        run: |
+          gh release create "$TAG" \
+            --repo="${GITHUB_REPOSITORY}" \
+            --title="${GITHUB_REPOSITORY#*/} $TAG" \
+            --generate-notes \
+            ./exported_models/*.onnx
